@@ -15,7 +15,7 @@ from huggingface_hub import login
 with open("config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
-# --- 0. Setup and Constants ---
+#Setup and Constants
 BASE_MODEL = config["model"]["base_model"]
 NEW_MODEL = config["model"]["new_model"]
 SYSTEM_PROMPT = config["training"]["system_prompt"]
@@ -59,7 +59,7 @@ raw_data = {
 
 dataset = load_dataset("csv", data_files={"train": DATASET_FILE})
 
-# --- 2. Model and Tokenizer Setup (QLoRA) ---
+#Model and Tokenizer Setup
 
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
@@ -87,7 +87,7 @@ dataset = dataset.map(lambda x: {"text": [tokenizer.apply_chat_template([
 ], tokenize=False) for u, a in zip(x["instruction"], x["response"])]}, batched=True, remove_columns=["instruction", "response"])
 
 
-# --- 3. LoRA and Training Configuration ---
+#LoRA and Training Configuration
 
 peft_config = LoraConfig(
     lora_alpha=LORA_ALPHA,
@@ -115,7 +115,7 @@ training_arguments = TrainingArguments(
     lr_scheduler_type="constant",
 )
 
-# --- 4. Trainer and Execution ---
+#Trainer and Execution
 
 trainer = SFTTrainer(
     model=model,
@@ -127,9 +127,9 @@ trainer = SFTTrainer(
     args=training_arguments,
 )
 
-print("Starting fine-tuning...")
+print("Starting fine tuning")
 trainer.train()
-print("Fine-tuning complete!")
+print("Fine-tuning complete")
 
 trainer.model.save_pretrained(NEW_MODEL)
 tokenizer.save_pretrained(NEW_MODEL)
