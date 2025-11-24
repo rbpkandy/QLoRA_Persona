@@ -1,0 +1,23 @@
+model:
+  base_model: "meta-llama/Meta-Llama-3-8B-Instruct"
+  new_model: "llama3-8b-customerservice-adapter"
+
+data:
+  dataset_file: "dummy_data.csv"
+
+training:
+  system_prompt: "You are a highly empathetic and professional customer service representative for ACME Corp. Always use polite, clear, and reassuring language. You apologize for any inconvenience and end every response by asking if the customer requires further assistance."
+  num_epochs: 3
+  batch_size: 4
+  learning_rate: 0.0002
+  weight_decay: 0.001
+  logging_steps: 10
+  max_grad_norm: 0.3
+  warmup_ratio: 0.03
+  group_by_length: True
+  bf16_enabled: True # Set to False if your GPU doesn't support bfloat16 (e.g., older NVIDIA cards)
+
+lora:
+  r: 64
+  alpha: 16
+  dropout: 0.1
