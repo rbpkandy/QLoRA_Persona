@@ -6,7 +6,7 @@ The goal is to adapt the base LLM to a highly specific tone and persona—in thi
 
 ## ⚙️ Configuration
 
-All critical hyper-parameters, model names, and the instruction system prompt are managed via the `config.yaml` file, allowing easy modification without touching the core Python script.
+All critical hyper-parameters, model names, and the instruction system prompt are managed via the `config.yaml` file, allowing easy modification without touching the core Python script (persona.py).
 
 | Parameter | Configuration Section | Description |
 | :--- | :--- | :--- |
